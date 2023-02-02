@@ -2,10 +2,10 @@ const express = require("express")
 const routerApi = require("./routes")
 const cors = require("cors")
 
-const { errorHandler, logErrors, BoomErrorHandler} = require("./middlewares/error.handler")
+const { errorHandler, logErrors, BoomErrorHandler, ormErrorHandler} = require("./middlewares/error.handler")
 
 const app = express()
-const port = 3000
+const port = 3001
 
 app.use(express.json())
 const whitelist = ['http://localhost:8080', 'https://myapp.co'];
@@ -31,6 +31,7 @@ app.get("/newroute", (req, res) => {
 })
 
 app.use(logErrors)
+app.use(ormErrorHandler)
 app.use(BoomErrorHandler)
 app.use(errorHandler)
 
